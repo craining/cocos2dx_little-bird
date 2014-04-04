@@ -1,0 +1,15 @@
+proj.blackberry
+proj.ios
+proj.linux
+proj.mac
+proj.marmalade
+proj.tizen
+proj.win32
+proj.winrt
+proj.wp8
+proj.android/.settings
+proj.android/assets
+proj.android/bin
+proj.android/gen
+proj.android/libs
+proj.android/obj

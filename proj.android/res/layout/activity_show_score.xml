@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dlg_bg" >
+
+    <TextView
+        android:id="@+id/text_showscore_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="35dip"
+        android:text="全球排名"
+        android:textColor="@android:color/black"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:id="@+id/layout_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text_showscore_title"
+        android:orientation="vertical" >
+
+        <ProgressBar
+            android:id="@+id/progressbar_loading"
+            android:layout_width="20dip"
+            android:layout_height="20dip" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="正在获取排名..." />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_showscore_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layout_loading"
+        android:layout_marginTop="30dip"
+        android:text="关闭" />
+
+</RelativeLayout>
