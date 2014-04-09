@@ -25,16 +25,22 @@ package com.zgy.hellobirdcoco;
 
 import org.cocos2dx.lib.Cocos2dxActivity;
 import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
+import org.json.JSONObject;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.RelativeLayout;
 
+import com.baidu.mobads.AdView;
+import com.baidu.mobads.AdViewListener;
 import com.zgy.hellobirdcoco.view.AppDialog;
 
 public class HelloBirdCoCo extends Cocos2dxActivity {
@@ -42,16 +48,28 @@ public class HelloBirdCoCo extends Cocos2dxActivity {
 	private static final String TAG = "Cocos2dxActivity";
 	private static Activity mContext;
 
+	private AdView mAdView;
+
 	protected void onCreate(Bundle savedInstanceState) {
 		mContext = HelloBirdCoCo.this;
+		Log.e("", " before super.onCreate");
 		super.onCreate(savedInstanceState);
+		Log.e("", " after super.onCreate");
+		setupAds();
 	}
 
+	// public RelativeLayout onCreateLayout(Cocos2dxGLSurfaceView surfaceView) {
+	// Log.e("", "onCreateLayout");
+	// RelativeLayout layout = new RelativeLayout(this);
+	// layout.addView(surfaceView);
+	// return layout;
+	// }
+
 	public Cocos2dxGLSurfaceView onCreateView() {
+		Log.e("", "onCreateView");
 		Cocos2dxGLSurfaceView glSurfaceView = new Cocos2dxGLSurfaceView(this);
 		// HelloBirdCoCo should create stencil buffer
 		glSurfaceView.setEGLConfigChooser(5, 6, 5, 0, 16, 8);
-
 		return glSurfaceView;
 	}
 
@@ -77,11 +95,74 @@ public class HelloBirdCoCo extends Cocos2dxActivity {
 		super.onBackPressed();
 	}
 
+	private void setupAds() {
+
+		RelativeLayout layout = new RelativeLayout(this);
+		addContentView(layout, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+		mAdView = new AdView(this);
+		
+		float addHeight = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 45, getApplication().getResources().getDisplayMetrics());
+		RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, Math.round(addHeight));
+		layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+		layout.addView(mAdView, layoutParams);
+
+		mAdView.setListener(new AdViewListener() {
+
+			@Override
+			public void onVideoStart() {
+			}
+
+			@Override
+			public void onVideoFinish() {
+			}
+
+			@Override
+			public void onVideoError() {
+			}
+
+			@Override
+			public void onVideoClickReplay() {
+			}
+
+			@Override
+			public void onVideoClickClose() {
+			}
+
+			@Override
+			public void onVideoClickAd() {
+			}
+
+			@Override
+			public void onAdSwitch() {
+				Log.e("", "onAdSwitch");
+			}
+
+			@Override
+			public void onAdShow(JSONObject arg0) {
+				Log.e("", "onAdShow");
+			}
+
+			@Override
+			public void onAdReady(AdView arg0) {
+				Log.e("", "onAdReady");
+			}
+
+			@Override
+			public void onAdFailed(String arg0) {
+				Log.e("", "onAdFailed");
+			}
+
+			@Override
+			public void onAdClick(JSONObject arg0) {
+			}
+		});
+	}
+
 	public void share() {
 		Log.i("cppCall", "share");
 		mHandler.sendEmptyMessage(MSG_SHARE);
 	}
-	
+
 	public void showScore(int score) {
 		Log.i("cppCall", "show score");
 		Message msg = mHandler.obtainMessage();
@@ -110,7 +191,7 @@ public class HelloBirdCoCo extends Cocos2dxActivity {
 				// startActivity(new Intent(HelloBirdCoCo.this, ShowScoreActivity.class));
 				break;
 			case MSG_SHOW_SCORE:
-				
+
 				AppDialog.Builder dlg = new AppDialog.Builder(HelloBirdCoCo.this);
 				dlg.setTitle("全球排名");
 				dlg.setMessage(String.format("您得分为 %d, 全球排名第 %d！", msg.arg1, 10));
@@ -118,7 +199,7 @@ public class HelloBirdCoCo extends Cocos2dxActivity {
 
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						 
+
 						dialog.dismiss();
 					}
 				});
@@ -140,7 +221,7 @@ public class HelloBirdCoCo extends Cocos2dxActivity {
 		}
 
 	};
-	
+
 	/**
 	 * 分享
 	 * 
@@ -155,6 +236,7 @@ public class HelloBirdCoCo extends Cocos2dxActivity {
 		intent.putExtra(Intent.EXTRA_TEXT, "发现一款好玩的游戏，快来下载体验一下吧！http://www.baidu.com");
 		startActivity(Intent.createChooser(intent, "游戏分享"));
 	}
+
 	/**
 	 * 分享
 	 * 

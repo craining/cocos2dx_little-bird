@@ -299,7 +299,7 @@ void StartPage::onAbout(CCObject* pSender) {
 	AlertDlg* pl = AlertDlg::create("bubble_grey_dlg.png");
 	pl->setContentSize(CCSizeMake(CCDirector::sharedDirector()->getVisibleSize().width/1.5, CCDirector::sharedDirector()->getVisibleSize().height/2));
 	pl->setTitle("小小鸟", 28);
-	pl->setContentText("\n\n本游戏用于技术交流\n\n\nby ZGY.\n2014-02", 20, 5, 130, false);
+	pl->setContentText("\n\n本游戏用于开发交流\n\n\nby ZGY.\nv1.0\n\n开发交流群88130145", 20, 5, 130, false);
 	pl->setCallbackFunc(this, callfuncN_selector(StartPage::buttonCallback));
 	pl->addButton("bubble_blue_btn_ok_n.png", "bubble_blue_btn_ok_p.png", "关闭", 0);
 	pl->addButton("bubble_white_dlg_btn_n.png", "bubble_white_dlg_btn_p.png", "分享", 1);
