@@ -11,5 +11,5 @@ proj.android/.settings
 proj.android/assets
 proj.android/bin
 proj.android/gen
-proj.android/libs
+proj.android/libs/armeabi
 proj.android/obj
